@@ -15,6 +15,10 @@
 public class MoveExecutor{ // executes move
     
 //	static int movement = 4;
+	static boolean powerUpPlace1 = false;
+	static boolean powerUpPlace2 = false;
+	static boolean powerUpPlace3 = false;
+	static boolean powerUpPlace4 = false;
     
     static public void executeMove( MapBasicBlock player, Types.Move move, int movement){
     	Position newPos = null;
@@ -36,7 +40,7 @@ public class MoveExecutor{ // executes move
     		newPos = new Position(player.getPosition().getRow(),player.getPosition().getColumn());
         		
     			RandomTest.m.map.map[playerR][playerC] = new Bomb(newPos);
-        		RandomTest.m.bomb = new Bomb(newPos);
+        		RandomTest.m.bomb = (Bomb) RandomTest.m.map.map[playerR][playerC];
 //        		System.out.println("BOMB Planted!");
     	}
     	
@@ -67,7 +71,7 @@ public class MoveExecutor{ // executes move
     		int eR = RandomTest.m.e1.getPosition().getRow();
     		int eC = RandomTest.m.e1.getPosition().getColumn();
     		
-    		if ( Math.abs((bR -eR))<=50 && Math.abs((bC -eC))<=50 ){
+    		if ( Math.abs((bR -eR))<=100 && Math.abs((bC -eC))<=100 ){
     			System.out.println("Enemy injured in blast radius!");
     			RandomTest.m.e1 = null;
     		}
@@ -77,7 +81,7 @@ public class MoveExecutor{ // executes move
             int eR = RandomTest.m.e2.getPosition().getRow();
             int eC = RandomTest.m.e2.getPosition().getColumn();
             
-            if ( Math.abs((bR -eR))<=50 && Math.abs((bC -eC))<=50 ){
+            if ( Math.abs((bR -eR))<=100 && Math.abs((bC -eC))<=100 ){
                 System.out.println("Enemy injured in blast radius!");
                 RandomTest.m.e2 = null;
             }
@@ -112,9 +116,71 @@ public class MoveExecutor{ // executes move
     	RandomTest.m.map.map[bombR][bombC] = null;
     	RandomTest.m.bomb = null;
 
+    	
+    	if (RandomTest.m.map.map[9][10]==null && powerUpPlace1==false){
+    		RandomTest.m.map.map[9][10] = new PowerUp(new Position(9,10),MapBasicBlock.loadImage("resources/power1.gif"),Types.PowerUps.BOMBS_UP);
+    		powerUpPlace1 = true;
+    	}
+    	
+    	if (RandomTest.m.map.map[3][5]==null && powerUpPlace2==false){
+    		RandomTest.m.map.map[3][5] = new PowerUp(new Position(3,5),MapBasicBlock.loadImage("resources/power2.gif"),Types.PowerUps.RANGE_UP);
+    		powerUpPlace2 = true;
+    	}
+    	
+    	if (RandomTest.m.map.map[10][3]==null && powerUpPlace3==false){
+    		RandomTest.m.map.map[10][3] = new PowerUp(new Position(10,3),MapBasicBlock.loadImage("resources/power2.gif"),Types.PowerUps.RANGE_UP);
+    		powerUpPlace3 = true;
+    	}
+    	
+    	if (RandomTest.m.map.map[7][6]==null && powerUpPlace4==false){
+    		RandomTest.m.map.map[7][6] = new PowerUp(new Position(7,6),MapBasicBlock.loadImage("resources/power1.gif"),Types.PowerUps.BOMBS_UP);
+    		powerUpPlace4 = true;
+    	}
+    	
+    	
+    	
     	RandomTest.m.repaint();
     	
     	
     }
-    
+
+    static public void checkPowerUp(MapBasicBlock player){
+    	int playerR=(int) Math.floor(player.getPosition().getRow() / 50);
+    	int playerC=(int) Math.floor(player.getPosition().getColumn() / 50);
+    	
+    	
+    	if (powerUpPlace1 == true){
+    		if (playerR == 9 && playerC==10){
+    			((Player) player).powerUp=(PowerUp)RandomTest.m.map.map[9][10];
+    			RandomTest.m.map.map[9][10] = null;
+    			((Player) player).powerUp.timer=1000;
+    		
+    		}
+    	}
+    	if (powerUpPlace2 == true){
+    		if (playerR == 3 && playerC==5){
+//    			System.out.println("hereeee");
+    			((Player) player).powerUp=(PowerUp)RandomTest.m.map.map[3][5];
+    			RandomTest.m.map.map[3][5] = null;
+    			((Player) player).powerUp.timer=1000;
+    		
+    		}
+    	}
+    	if (powerUpPlace3 == true){
+    		if (playerR == 10 && playerC==3){
+    			((Player) player).powerUp=(PowerUp)RandomTest.m.map.map[10][3];
+    			RandomTest.m.map.map[10][3] = null;
+    			((Player) player).powerUp.timer=1000;
+    		
+    		}
+    	}
+    	if (powerUpPlace4 == true){
+    		if (playerR == 7 && playerC==6){
+    			((Player) player).powerUp=(PowerUp)RandomTest.m.map.map[7][6];
+    			RandomTest.m.map.map[7][6] = null;
+    			((Player) player).powerUp.timer=1000;
+    		
+    		}
+    	}
+    }
 }

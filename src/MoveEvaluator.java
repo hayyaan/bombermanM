@@ -27,8 +27,8 @@ public class MoveEvaluator {
     		playerC = (player.getPosition().getColumn()-10) /50;
     	}
     	else if (move == Types.Move.LEFT || move == Types.Move.UP){
-    		playerR = (player.getPosition().getRow()+20) /50;
-    		playerC = (player.getPosition().getColumn()+20) /50;
+    		playerR = (player.getPosition().getRow()+15) /50;
+    		playerC = (player.getPosition().getColumn()+15) /50;
     	}
 
     	
@@ -39,12 +39,25 @@ public class MoveEvaluator {
     		if (RandomTest.m.map.map[playerR][playerC-1] == null){
     			return true;
     		}
+    		if (RandomTest.m.map.map[playerR][playerC-1].isofType(Types.BlockType.EMPTY)){
+    			RandomTest.m.gameEnd=true;
+    			return true;
+    		}
+    		if (RandomTest.m.map.map[playerR][playerC-1].isofType(Types.BlockType.POWER_UP)){
+    			return true;
+    		}
     	}
     	else if(move == Types.Move.DOWN){
     		if (player.getPosition().getColumn() >=750){
     			return false;
     		}
     		if (RandomTest.m.map.map[playerR][playerC+1] == null){
+    			return true;
+    		}
+    		if (RandomTest.m.map.map[playerR][playerC+1].isofType(Types.BlockType.EMPTY)){
+    			return true;
+    		}
+    		if (RandomTest.m.map.map[playerR][playerC+1].isofType(Types.BlockType.POWER_UP)){
     			return true;
     		}
     	}
@@ -55,12 +68,24 @@ public class MoveEvaluator {
     		if (RandomTest.m.map.map[playerR-1][playerC] == null){
     			return true;
     		}
+    		if (RandomTest.m.map.map[playerR-1][playerC].isofType(Types.BlockType.EMPTY)){
+    			return true;
+    		}
+    		if (RandomTest.m.map.map[playerR-1][playerC].isofType(Types.BlockType.POWER_UP)){
+    			return true;
+    		}
     	}
     	else if(move == Types.Move.RIGHT){
     		if (player.getPosition().getRow() >=750){
     			return false;
     		}
     		if (RandomTest.m.map.map[playerR+1][playerC] == null){
+    			return true;
+    		}
+    		if (RandomTest.m.map.map[playerR+1][playerC].isofType(Types.BlockType.EMPTY)){
+    			return true;
+    		}
+    		if (RandomTest.m.map.map[playerR+1][playerC].isofType(Types.BlockType.POWER_UP)){
     			return true;
     		}
     	}

@@ -14,6 +14,7 @@ public class Player extends MapBasicBlock {
     private boolean alive;
     private int playerID;
     Sprite sprites;
+    PowerUp powerUp;
     
     public Player(){    	
         super(Types.BlockType.PLAYER,new Position(75,75),loadImage("resources/b11.gif"));
@@ -26,7 +27,9 @@ public class Player extends MapBasicBlock {
         				"resources/bl1.gif","resources/bl2.gif","resources/bl3.gif","resources/bl4.gif","resources/bl5.gif","resources/bl6.gif",
         				"resources/bdead1.gif","resources/bdead2.gif","resources/bdead3.gif","resources/bdead4.gif"};
         sprites = new Sprite(spr);
+        powerUp = null;
     }
+    
     
     
 }

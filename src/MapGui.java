@@ -33,8 +33,15 @@ public class MapGui extends JPanel implements KeyListener,ActionListener{
 	int fireTimer; // fire timer
 	int fireCounter; // fire counter, used for sprites
 	
+	boolean endDoorPlace;
+	int endDoorR;
+	int endDoorC;
+	
+
+	
 	boolean gameEnd; // level cleared
 	boolean gameOver; // game over
+	
 	
 
 	public MapGui(){
@@ -44,8 +51,8 @@ public class MapGui extends JPanel implements KeyListener,ActionListener{
 		
 		time.start();
 		
-		e1 = new Enemy(new Position((7*50)+25,(7*50)+25),2);
-		e2 = new Enemy(new Position((3*50)+25,(9*50)+25),1);
+//		e1 = new Enemy(new Position((7*50)+25,(7*50)+25),2);
+//		e2 = new Enemy(new Position((3*50)+25,(9*50)+25),1);
 		
 		bomb=null;
 		
@@ -90,7 +97,7 @@ public class MapGui extends JPanel implements KeyListener,ActionListener{
 		if (bombToggle == true){
 //			System.out.println("Hello");
 			MoveExecutor.executeMove(p1, Types.Move.PLACE_BOMB,playerStep);
-			bombTimer = 300;
+			bombTimer = 400;
 			bombToggle = false;
 		}
 		
@@ -138,10 +145,30 @@ public class MapGui extends JPanel implements KeyListener,ActionListener{
 			
 		}
 		
-		if (map.checkEnd()){ //if all boxes cleared
-			gameEnd = true;
+		if (p1.powerUp==null){
+		MoveExecutor.checkPowerUp(p1);
+		}
+		else{
+			p1.powerUp.timer--;
+			if(p1.powerUp.timer<=0){
+				System.out.println("expired");
+				p1.powerUp=null;
+			}
+		}
+		
+		if (map.checkEndDoor(p1)){ //if all enemies cleared
+//			gameEnd = true;
 			time.stop();
 			System.out.println("Game Over!\n You won!");
+		}
+		
+		if (e1 == null && e2==null && endDoorPlace==false){
+			Image eDoor = MapBasicBlock.loadImage("resources/enddoor.gif");
+			endDoorR=1;
+			endDoorC=13;
+			RandomTest.m.map.map[endDoorR][endDoorC] = new MapBasicBlock(Types.BlockType.EMPTY,new Position((endDoorR*50)+25,(endDoorC*50)+25),eDoor);
+			endDoorPlace=true;
+			System.out.println("End Door placed!");
 		}
 		
 		if (gameOver==true){ //if player dies
@@ -160,12 +187,12 @@ public class MapGui extends JPanel implements KeyListener,ActionListener{
 	}
 	
 	public void keyReleased(KeyEvent e){
-		movement =0;
+//		movement =0;
 //		bomb = false;
 	}
 	
 	public void keyTyped(KeyEvent e){
-		movement =0;
+//		movement =0;
 //		bomb = false;
 	}
 	
@@ -235,7 +262,7 @@ public class MapGui extends JPanel implements KeyListener,ActionListener{
 			g2d.drawImage(e1.getImage(),e1.getPosition().getRow()-25,e1.getPosition().getColumn()-25,e1.getImage().getWidth(null),e1.getImage().getHeight(null),null);
 		}
 		if (e2 !=null){
-			g2d.drawImage(e2.getImage(),e2.getPosition().getRow()-25,e2.getPosition().getColumn()-25,e2.getImage().getWidth(null),e1.getImage().getHeight(null),null);
+			g2d.drawImage(e2.getImage(),e2.getPosition().getRow()-25,e2.getPosition().getColumn()-25,e2.getImage().getWidth(null),e2.getImage().getHeight(null),null);
 			}
 	}
 	

@@ -74,5 +74,17 @@ public class Map {
     	
     }
     
+    public boolean checkEndDoor(Player player){
+    	int playerR = (player.getPosition().getRow()) /50;
+		int playerC = (player.getPosition().getColumn()) /50;
+
+		
+		if (playerR == RandomTest.m.endDoorR && playerC == RandomTest.m.endDoorC){
+			RandomTest.m.gameEnd=true;
+			return true;
+		}
+		return false;
+    }
+    
     
 }

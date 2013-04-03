@@ -14,18 +14,18 @@ import java.awt.Image;
 
 
 // not used
-/*
+
 
 public class PowerUp extends MapBasicBlock{
     
-    private PowerUp powerUp;
+    private Types.PowerUps powerUp;
+    int timer;
     
-    public PowerUp( BlockType _blockType, Position _position, Image _image, PowerUps _powerUp){
-        
-        super( _blockType,_position, _image);
+    public PowerUp( Position _position, Image _image, Types.PowerUps _powerUp){
+    	super( Types.BlockType.POWER_UP,_position, _image);
         
         powerUp = _powerUp;
+        timer=-1;
     }
     
 }
-*/
