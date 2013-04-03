@@ -150,9 +150,9 @@ public class Sprite { //handles sprites and all animations
 
 	}
 	
-	public void animateBomb(){
-		int bR = RandomTest.m.bomb.getPosition().getRow() / 50;
-		int bC = RandomTest.m.bomb.getPosition().getColumn() / 50;
+	public void animateBomb(Bomb bomb){
+		int bR = bomb.getPosition().getRow() / 50;
+		int bC = bomb.getPosition().getColumn() / 50;
 		
 		if (alternate ==0){
 			RandomTest.m.map.map[bR][bC].setImage(sprites[1]);

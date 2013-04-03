@@ -50,6 +50,15 @@ public class Fire extends MapBasicBlock{
     			if (r==-2 && c==-2 || r==-2 && c==2 || r==2 && c==-2 || r==2 && c==2){ //diagonals
     				continue;
     			}
+    			if (r==-2 && c==-1 || r==-2 && c==1 || r==2 && c==-1 || r==2 && c==1){ //diagonals
+    				continue;
+    			}
+    			if (r==-1 && c==-2 || r==1 && c==-2 || r==-1 && c==2 || r==1 && c==2){ //diagonals
+    				continue;
+    			}
+    			if (bombR+r > 14 || bombC+c > 14){
+    				continue;
+    			}
     			if (RandomTest.m.map.map[bombR+r][bombC+c]==null){
     				RandomTest.m.map.map[bombR+r][bombC+c] = new Fire(new Position((bombR+r)*50 +25 , (bombC+c)*50 + 25));
     			}

@@ -91,7 +91,12 @@ public class MoveEvaluator {
     	}
     	
     	else if(move == Types.Move.PLACE_BOMB){
-    		if (RandomTest.m.bomb!=null){
+    		if (RandomTest.m.bombOnScreen==2){
+    			if (RandomTest.m.p1.powerUp!=null){
+    				 if (((Player)player).powerUp.powerUp.equals(Types.PowerUps.BOMBS_UP)==true){
+    					 return true;
+    				 }
+    			}
     			System.out.println("Can't place bomb!");
     			return false;
     		}

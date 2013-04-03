@@ -13,6 +13,8 @@ public class Player extends MapBasicBlock {
     
     private boolean alive;
     private int playerID;
+    int movement;
+    int playerStep;
     Sprite sprites;
     PowerUp powerUp;
     
@@ -20,6 +22,8 @@ public class Player extends MapBasicBlock {
         super(Types.BlockType.PLAYER,new Position(75,75),loadImage("resources/b11.gif"));
         alive = true;
         playerID++;
+        movement=0;
+        playerStep=5;
         String spr[] ={"resources/b11.gif","resources/b12.gif",
         				"resources/bu1.gif","resources/bu2.gif","resources/bu3.gif","resources/bu4.gif",
         				"resources/bd1.gif","resources/bd2.gif","resources/bd3.gif",

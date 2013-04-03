@@ -40,7 +40,9 @@ public class MoveExecutor{ // executes move
     		newPos = new Position(player.getPosition().getRow(),player.getPosition().getColumn());
         		
     			RandomTest.m.map.map[playerR][playerC] = new Bomb(newPos);
-        		RandomTest.m.bomb = (Bomb) RandomTest.m.map.map[playerR][playerC];
+    			((Bomb)RandomTest.m.map.map[playerR][playerC]).timer = 400;
+        		RandomTest.m.bombArray.add( (Bomb) RandomTest.m.map.map[playerR][playerC] );
+        		RandomTest.m.bombOnScreen++;
 //        		System.out.println("BOMB Planted!");
     	}
     	
@@ -79,9 +81,10 @@ public class MoveExecutor{ // executes move
     		int eR = RandomTest.m.e1.getPosition().getRow();
     		int eC = RandomTest.m.e1.getPosition().getColumn();
     		
-    		if ( Math.abs((bR -eR))<=range*1.5 && Math.abs((bC -eC))<=range*1.5 ){
+    		if ( Math.abs((bR -eR))<=range*1.2 && Math.abs((bC -eC))<=range*1.2 ){
     			System.out.println("Enemy injured in blast radius!");
     			RandomTest.m.e1 = null;
+    			RandomTest.m.enemyT1.stop();
     		}
     	}
         if (RandomTest.m.e2!=null){
@@ -89,9 +92,32 @@ public class MoveExecutor{ // executes move
             int eR = RandomTest.m.e2.getPosition().getRow();
             int eC = RandomTest.m.e2.getPosition().getColumn();
             
-            if ( Math.abs((bR -eR))<=range*1.5 && Math.abs((bC -eC))<=range*1.5 ){
+            if ( Math.abs((bR -eR))<=range*1.2 && Math.abs((bC -eC))<=range*1.2 ){
                 System.out.println("Enemy injured in blast radius!");
                 RandomTest.m.e2 = null;
+                RandomTest.m.enemyT2.stop();
+            }
+        }
+        if (RandomTest.m.e3!=null){
+            
+            int eR = RandomTest.m.e3.getPosition().getRow();
+            int eC = RandomTest.m.e3.getPosition().getColumn();
+            
+            if ( Math.abs((bR -eR))<=range*1.2 && Math.abs((bC -eC))<=range*1.2 ){
+                System.out.println("Enemy injured in blast radius!");
+                RandomTest.m.e3 = null;
+                RandomTest.m.enemyT3.stop();
+            }
+        }
+        if (RandomTest.m.e4!=null){
+            
+            int eR = RandomTest.m.e4.getPosition().getRow();
+            int eC = RandomTest.m.e4.getPosition().getColumn();
+            
+            if ( Math.abs((bR -eR))<=range*1.2 && Math.abs((bC -eC))<=range*1.2 ){
+                System.out.println("Enemy injured in blast radius!");
+                RandomTest.m.e4 = null;
+                RandomTest.m.enemyT4.stop();
             }
         }
     	
@@ -121,8 +147,10 @@ public class MoveExecutor{ // executes move
     			}
     		}
     	}
+//    	RandomTest.m.bombArray.remove(bomb);
     	RandomTest.m.map.map[bombR][bombC] = null;
-    	RandomTest.m.bomb = null;
+    	RandomTest.m.bombOnScreen--;
+//    	RandomTest.m.bomb = null;
 
     	
     	if (RandomTest.m.map.map[9][10]==null && powerUpPlace1==false){

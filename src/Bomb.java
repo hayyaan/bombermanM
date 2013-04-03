@@ -20,6 +20,12 @@ public class Bomb extends MapBasicBlock {
 	
 	int timer;
 	Sprite sprites;
+	
+	boolean fire;
+	int fireTimer;
+	int fireCounter;
+	
+	
     
     public Bomb(Position _position){
         super(Types.BlockType.BOMB,_position, loadImage("resources/bomb1.gif"));

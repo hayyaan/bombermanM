@@ -16,7 +16,7 @@ public class RandomTest { // class that runs the actual game
 	f.setVisible(true);
 	
 	Thread sound = new Thread(new Music());
-	sound.start();
+//	sound.start();
 	
 	
 	
