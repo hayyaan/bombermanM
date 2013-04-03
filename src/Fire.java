@@ -17,16 +17,37 @@ public class Fire extends MapBasicBlock{
         sprites = new Sprite(spr);
     }
     
-    static void placeFire(Position bombPosition){ //places fire block
+    static void placeFire(Position bombPosition,boolean powered){ //places fire block
     	int bombR = bombPosition.getRow() / 50;
     	int bombC = bombPosition.getColumn() / 50;
     	
     	System.out.println("Bomb was at "+ bombR + " x " + bombC);
     	RandomTest.m.map.map[bombR][bombC] = new Fire(new Position(bombR*50 +25 , bombC*50 + 25));
     	
-    	for (int r=-1;r<2;r++){
-    		for (int c=-1;c<2;c++){
+    	int rfind=-1;
+    	int rend=1;
+    	int cfind=-1;
+    	int cend=1;
+    	if (powered){
+    		if (bombR>1){
+    			rfind=-2;
+    		}
+    		if (bombR<14){
+    			rend=2;
+    		}
+    		if (bombC>1){
+    			cfind=-2;
+    		}
+    		if (bombC<14){
+    			cend=2;
+    		}
+    	}
+    	for (int r=rfind;r<=rend;r++){
+    		for (int c=cfind;c<=cend;c++){
     			if (r==-1 && c==-1 || r==-1 && c==1 || r==1 && c==-1 || r==1 && c==1){ //diagonals
+    				continue;
+    			}
+    			if (r==-2 && c==-2 || r==-2 && c==2 || r==2 && c==-2 || r==2 && c==2){ //diagonals
     				continue;
     			}
     			if (RandomTest.m.map.map[bombR+r][bombC+c]==null){

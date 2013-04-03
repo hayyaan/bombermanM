@@ -18,7 +18,7 @@ import java.awt.Image;
 
 public class PowerUp extends MapBasicBlock{
     
-    private Types.PowerUps powerUp;
+    Types.PowerUps powerUp;
     int timer;
     
     public PowerUp( Position _position, Image _image, Types.PowerUps _powerUp){

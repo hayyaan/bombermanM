@@ -52,10 +52,18 @@ public class MoveExecutor{ // executes move
 
     }
     
-    static public void explodeBomb(Bomb bomb){
+    static public void explodeBomb(Bomb bomb,Player player){
     	
     	int bombR=bomb.getPosition().getRow() / 50;
     	int bombC=bomb.getPosition().getColumn() / 50;
+    	
+    	int range = 50;
+    	if (player.powerUp!=null){
+    		if (player.powerUp.powerUp.equals(Types.PowerUps.RANGE_UP)){
+    			range=100;
+    		}
+    	}
+    	System.out.println("range"+range);
     	
     	// System.out.println(bomb.getPosition().getRow());
     	// System.out.println(RandomTest.m.p1.getPosition().getRow());
@@ -71,7 +79,7 @@ public class MoveExecutor{ // executes move
     		int eR = RandomTest.m.e1.getPosition().getRow();
     		int eC = RandomTest.m.e1.getPosition().getColumn();
     		
-    		if ( Math.abs((bR -eR))<=100 && Math.abs((bC -eC))<=100 ){
+    		if ( Math.abs((bR -eR))<=range*1.5 && Math.abs((bC -eC))<=range*1.5 ){
     			System.out.println("Enemy injured in blast radius!");
     			RandomTest.m.e1 = null;
     		}
@@ -81,20 +89,20 @@ public class MoveExecutor{ // executes move
             int eR = RandomTest.m.e2.getPosition().getRow();
             int eC = RandomTest.m.e2.getPosition().getColumn();
             
-            if ( Math.abs((bR -eR))<=100 && Math.abs((bC -eC))<=100 ){
+            if ( Math.abs((bR -eR))<=range*1.5 && Math.abs((bC -eC))<=range*1.5 ){
                 System.out.println("Enemy injured in blast radius!");
                 RandomTest.m.e2 = null;
             }
         }
     	
     	
-    	if ( Math.abs((bR -pR))<=50 && Math.abs((bC -pC))<=50 ){ //check player collisions
+    	if ( Math.abs((bR -pR))<=range && Math.abs((bC -pC))<=range ){ //check player collisions
     		System.out.println("Player injured in blast radius!");
 			RandomTest.m.gameOver =true;
 			return;
     	}
     	
-    	Fire.placeFire(bomb.getPosition()); //place fire
+    	Fire.placeFire(bomb.getPosition(),(range==100)); //place fire
     	
     	
     	

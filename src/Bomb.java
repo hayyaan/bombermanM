@@ -18,6 +18,7 @@
 
 public class Bomb extends MapBasicBlock {
 	
+	int timer;
 	Sprite sprites;
     
     public Bomb(Position _position){
@@ -25,6 +26,7 @@ public class Bomb extends MapBasicBlock {
         
         String spr[] = {"resources/bomb1.gif","resources/bomb2.gif","resources/bomb3.gif"};
         sprites = new Sprite(spr);
+        timer =-1;
     }
     
 }

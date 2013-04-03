@@ -27,7 +27,8 @@ public class MapGui extends JPanel implements KeyListener,ActionListener{
 	
 	Bomb bomb; // bomb
 	boolean bombToggle; //toggle for placing bomb
-	int bombTimer; // bomb timer
+//	int nBombs;
+//	int bombTimer; // bomb timer
 	
 	boolean fire; // fireToggle
 	int fireTimer; // fire timer
@@ -51,10 +52,11 @@ public class MapGui extends JPanel implements KeyListener,ActionListener{
 		
 		time.start();
 		
-//		e1 = new Enemy(new Position((7*50)+25,(7*50)+25),2);
-//		e2 = new Enemy(new Position((3*50)+25,(9*50)+25),1);
-		
 		bomb=null;
+		e1 = new Enemy(new Position((7*50)+25,(7*50)+25),2);
+		e2 = new Enemy(new Position((3*50)+25,(9*50)+25),1);
+		
+		
 		
 		this.addKeyListener(this);
 		this.setFocusable(true);
@@ -93,28 +95,29 @@ public class MapGui extends JPanel implements KeyListener,ActionListener{
 			e2.killPlayer();
 		}
 		
-		
 		if (bombToggle == true){
 //			System.out.println("Hello");
 			MoveExecutor.executeMove(p1, Types.Move.PLACE_BOMB,playerStep);
-			bombTimer = 400;
+			bomb.timer = 400;
 			bombToggle = false;
 		}
 		
-		if (bombTimer==1){
+		if (bomb!=null){
+			if (bomb.timer==1){
 			//explosion
-			MoveExecutor.explodeBomb(bomb);
+			MoveExecutor.explodeBomb(bomb,p1);
 			System.out.println("Explosion");
-			bombTimer--;
+//			bomb.timer--;
 			fireTimer = 20;
 			fireCounter=0;
 			fire = true;
-		}
+			}
 		
-		else if (bombTimer>0){
-			bombTimer--;
-			if (bombTimer %8 ==0){
+			else if (bomb.timer>0){
+			bomb.timer--;
+				if (bomb.timer %8 ==0){
 				bomb.sprites.animateBomb();
+				}
 			}
 		}
 		
