@@ -37,6 +37,7 @@ public class MapGui extends JPanel implements KeyListener,ActionListener{
 	
 	ArrayList<Bomb> bombArray;
 	int bombOnScreen;
+	ArrayList<Thread> bombThreads;
 	
 	
 //	Bomb bomb; // bomb
@@ -68,6 +69,7 @@ public class MapGui extends JPanel implements KeyListener,ActionListener{
 		time.start();
 		
 		bombArray = new ArrayList<Bomb>();
+		bombThreads = new ArrayList<Thread>();
 //		bomb=null;
 		e1 = new Enemy(new Position((7*50)+25,(7*50)+25),2);
 		e2 = new Enemy(new Position((3*50)+25,(9*50)+25),1);
@@ -124,63 +126,63 @@ public class MapGui extends JPanel implements KeyListener,ActionListener{
 //			e2.killPlayer();
 //		}
 		
-		if (bombToggle == true){
-//			System.out.println("Hello");
-			MoveExecutor.executeMove(p1, Types.Move.PLACE_BOMB,p1.playerStep);
+ 		if (bombToggle == true){
+ //			System.out.println("Hello");
+ 			MoveExecutor.executeMove(p1, Types.Move.PLACE_BOMB,p1.playerStep);
 			
-			bombToggle = false;
-		}
+ 			bombToggle = false;
+ 		}
 		
-		for (int bi=0;bi<bombArray.size();bi++){
-			Bomb bomb =bombArray.get(bi);
-		if (bomb!=null){
-			if (bomb.timer==1){
-			//explosion
-			MoveExecutor.explodeBomb(bomb,p1);
-			System.out.println("Explosion");
-			bomb.timer--;
-			bomb.fireTimer = 20;
-			bomb.fireCounter=0;
-			bomb.fire = true;
-			}
+// 		for (int bi=0;bi<bombArray.size();bi++){
+// 			Bomb bomb =bombArray.get(bi);
+// 		if (bomb!=null){
+// 			if (bomb.timer==1){
+// 			//explosion
+// 			MoveExecutor.explodeBomb(bomb,p1);
+// 			System.out.println("Explosion");
+// 			bomb.timer--;
+// 			bomb.fireTimer = 20;
+// 			bomb.fireCounter=0;
+// 			bomb.fire = true;
+// 			}
 		
-			else if (bomb.timer>0){
-			bomb.timer--;
-				if (bomb.timer %8 ==0){
-				bomb.sprites.animateBomb(bomb);
-				}
-			}
-		}
+// 			else if (bomb.timer>0){
+// 			bomb.timer--;
+// 				if (bomb.timer %8 ==0){
+// 				bomb.sprites.animateBomb(bomb);
+// 				}
+// 			}
+// 		}
 		
 		
 		
-		if (bomb.fire ==true){
-			bomb.fireTimer--;
-			if (bomb.fireTimer % 8 ==0){
-				if (bomb.fireCounter<3){
-				Sprite.animateFire(bomb.fireCounter);
-				bomb.fireCounter++;
-				}
-			}
-		}
+// 		if (bomb.fire ==true){
+// 			bomb.fireTimer--;
+// 			if (bomb.fireTimer % 8 ==0){
+// 				if (bomb.fireCounter<3){
+// 				Sprite.animateFire(bomb.fireCounter);
+// 				bomb.fireCounter++;
+// 				}
+// 			}
+// 		}
 		
-		if (bomb.fireTimer <0){
-//			System.out.println("running");
-			bomb.fire=false;
-			for (int r=0;r<15;r++){
-	    		for (int c=0;c<15;c++){
-	    			if( RandomTest.m.map.map[r][c] == null){
-	    				continue;
-	    			}
-	    			else if ( RandomTest.m.map.map[r][c].isofType(Types.BlockType.FIRE)){
-	    				RandomTest.m.map.map[r][c]=null;
-	    			}
-	    		}
-	    	}
+// 		if (bomb.fireTimer <0){
+// //			System.out.println("running");
+// 			bomb.fire=false;
+// 			for (int r=0;r<15;r++){
+// 	    		for (int c=0;c<15;c++){
+// 	    			if( RandomTest.m.map.map[r][c] == null){
+// 	    				continue;
+// 	    			}
+// 	    			else if ( RandomTest.m.map.map[r][c].isofType(Types.BlockType.FIRE)){
+// 	    				RandomTest.m.map.map[r][c]=null;
+// 	    			}
+// 	    		}
+// 	    	}
 			
-		}
+// 		}
 		
-		}
+		// }
 		
  		if (p1.powerUp==null){
  			MoveExecutor.checkPowerUp(p1);

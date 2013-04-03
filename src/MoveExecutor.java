@@ -43,6 +43,9 @@ public class MoveExecutor{ // executes move
     			((Bomb)RandomTest.m.map.map[playerR][playerC]).timer = 400;
         		RandomTest.m.bombArray.add( (Bomb) RandomTest.m.map.map[playerR][playerC] );
         		RandomTest.m.bombOnScreen++;
+        		Thread bThread = new Thread(new BombThread((Bomb) RandomTest.m.map.map[playerR][playerC]));
+        		bThread.start();
+        		RandomTest.m.bombThreads.add(bThread);
 //        		System.out.println("BOMB Planted!");
     	}
     	
