@@ -15,6 +15,7 @@ public class MapGui extends JPanel implements KeyListener,ActionListener{
 	Image bg; //background
 
 	Player p1; //player
+	Player p2;
 	
 	Enemy e1; //enemy 1
 	Enemy e2; //enemy 2
@@ -64,6 +65,7 @@ public class MapGui extends JPanel implements KeyListener,ActionListener{
 		bg = MapBasicBlock.loadImage("resources/background.png");
 		map = new Map(15,15);
 		p1 = new Player();
+		p2 = new Player(new Position(675,675));
 //		Thread playerT=new Thread(new PlayerThread(p1));
 //		playerT.start();
 		time.start();
@@ -113,8 +115,25 @@ public class MapGui extends JPanel implements KeyListener,ActionListener{
 		 	MoveExecutor.executeMove(p1, Types.Move.LEFT,p1.playerStep);
 		 }
 		
-		 p1.sprites.animatePlayer(p1.movement);
+		 p1.sprites.animatePlayer(p1);
 		
+//		 System.out.println(p2.movement);
+		 if (p2.movement ==1){
+//			 System.out.println("move it move it");
+			 	MoveExecutor.executeMove(p2, Types.Move.UP,p2.playerStep);
+			 }
+			 else if (p2.movement==-1){
+			 	MoveExecutor.executeMove(p2, Types.Move.DOWN,p2.playerStep);
+			 }
+			 else if (p2.movement ==2){
+			 	MoveExecutor.executeMove(p2, Types.Move.RIGHT,p2.playerStep);
+			 }
+			 else if (p2.movement ==-2){
+			 	MoveExecutor.executeMove(p2, Types.Move.LEFT,p2.playerStep);
+			 }
+			
+		 p2.sprites.animatePlayer(p2);
+		 
 		
 		
 //		if (e1 !=null){
@@ -126,12 +145,18 @@ public class MapGui extends JPanel implements KeyListener,ActionListener{
 //			e2.killPlayer();
 //		}
 		
- 		if (bombToggle == true){
+ 		if (p1.bombToggle == true){
  //			System.out.println("Hello");
  			MoveExecutor.executeMove(p1, Types.Move.PLACE_BOMB,p1.playerStep);
 			
- 			bombToggle = false;
+ 			p1.bombToggle = false;
  		}
+ 		if (p2.bombToggle == true){
+ 			 //			System.out.println("Hello");
+ 			MoveExecutor.executeMove(p2, Types.Move.PLACE_BOMB,p2.playerStep);
+ 						
+ 			p2.bombToggle = false;
+  		}
 		
 // 		for (int bi=0;bi<bombArray.size();bi++){
 // 			Bomb bomb =bombArray.get(bi);
@@ -194,9 +219,19 @@ public class MapGui extends JPanel implements KeyListener,ActionListener{
  				p1.powerUp=null;
  			}
  		}
+ 		if (p2.powerUp==null){
+ 			MoveExecutor.checkPowerUp(p2);
+ 		}
+ 		else{
+ 			p2.powerUp.timer--;
+ 			if(p2.powerUp.timer<=0){
+ 				System.out.println("expired");
+ 				p2.powerUp=null;
+ 			}
+ 		}
 		
  		if (e1==null){
- 		if (map.checkEndDoor(p1)){ //if all enemies cleared
+ 		if (map.checkEndDoor(p2)){ //if all enemies cleared
  //			gameEnd = true;
  			time.stop();
  			System.out.println("Game Over!\n You won!");
@@ -215,7 +250,8 @@ public class MapGui extends JPanel implements KeyListener,ActionListener{
 		if (gameOver==true){ //if player dies
 			System.out.println("You died!");
 			p1.movement = 9;
-			RandomTest.m.p1.sprites.animatePlayer(p1.movement);
+			RandomTest.m.p1.sprites.animatePlayer(p1);
+			RandomTest.m.p2.sprites.animatePlayer(p2);
 			time.stop();
 			enemyT1.stop();
 			enemyT2.stop();
@@ -228,17 +264,20 @@ public class MapGui extends JPanel implements KeyListener,ActionListener{
 		
 		
 		p1.movement=0;
+		p2.movement=0;
 //		this.repaint();
 		
 	}
 	
 	public void keyReleased(KeyEvent e){
 		p1.movement =0;
+//		p2.movement =0;
 //		bomb = false;
 	}
 	
 	public void keyTyped(KeyEvent e){
 		p1.movement =0;
+//		p2.movement =0;
 //		bomb = false;
 	}
 	
@@ -272,7 +311,40 @@ public class MapGui extends JPanel implements KeyListener,ActionListener{
 		else if (e.getKeyCode()==KeyEvent.VK_SPACE){
 //			System.out.println("Pressed SPACE!");
 			if (MoveEvaluator.isValidMove(p1,Types.Move.PLACE_BOMB)){			
-				bombToggle =true;
+				p1.bombToggle =true;
+//				System.out.println(bomb);
+			}
+		}
+		
+		if (e.getKeyCode()==KeyEvent.VK_W){
+//			System.out.println("Pressed UP!");
+			if (MoveEvaluator.isValidMove(p2,Types.Move.UP)){
+				p2.movement = 1;
+//				System.out.println(p2.movement);
+			}
+		}
+		else if (e.getKeyCode()==KeyEvent.VK_S){
+//			System.out.println("Pressed DOWN!");
+			if (MoveEvaluator.isValidMove(p2,Types.Move.DOWN)){
+				p2.movement = -1;
+			}
+		}
+		else if (e.getKeyCode()==KeyEvent.VK_A){
+//			System.out.println("Pressed LEFT!");
+			if (MoveEvaluator.isValidMove(p2,Types.Move.LEFT)){
+				p2.movement = -2;
+			}
+		}
+		else if (e.getKeyCode()==KeyEvent.VK_D){
+//			System.out.println("Pressed RIGHT!");
+			if (MoveEvaluator.isValidMove(p2,Types.Move.RIGHT)){
+				p2.movement =2;
+			}
+		}
+		else if (e.getKeyCode()==KeyEvent.VK_X){
+//			System.out.println("Pressed SPACE!");
+			if (MoveEvaluator.isValidMove(p2,Types.Move.PLACE_BOMB)){			
+				p2.bombToggle =true;
 //				System.out.println(bomb);
 			}
 		}
@@ -301,6 +373,7 @@ public class MapGui extends JPanel implements KeyListener,ActionListener{
 		
 		
 		g2d.drawImage(p1.getImage(),p1.getPosition().getRow()-25,p1.getPosition().getColumn()-25,p1.getImage().getWidth(null),p1.getImage().getHeight(null),null);
+		g2d.drawImage(p2.getImage(),p2.getPosition().getRow()-25,p2.getPosition().getColumn()-25,p2.getImage().getWidth(null),p2.getImage().getHeight(null),null);
 		
 
 		

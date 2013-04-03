@@ -28,6 +28,7 @@ public class BombThread implements Runnable{
 					if (bomb.timer==1){
 					//explosion
 					MoveExecutor.explodeBomb(bomb,RandomTest.m.p1);
+					MoveExecutor.explodeBomb(bomb,RandomTest.m.p2);
 					System.out.println("Explosion");
 					bomb.timer--;
 					bomb.fireTimer = 20;

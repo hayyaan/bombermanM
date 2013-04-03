@@ -91,10 +91,10 @@ public class Enemy extends MapBasicBlock{
     	}
     }
     
-    public void killPlayer(){ // check player collision
+    public void killPlayer(Player p){ // check player collision
     		
-    		int playerR = (RandomTest.m.p1.getPosition().getRow());
-        	int playerC = (RandomTest.m.p1.getPosition().getColumn());
+    		int playerR = (p.getPosition().getRow());
+        	int playerC = (p.getPosition().getColumn());
     		
     		int eR = this.getPosition().getRow();
     		int eC = this.getPosition().getColumn();

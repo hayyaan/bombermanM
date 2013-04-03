@@ -24,6 +24,7 @@ public class MoveExecutor{ // executes move
     	Position newPos = null;
     	if (move == Types.Move.UP){
     		newPos = new Position(player.getPosition().getRow(),player.getPosition().getColumn()-movement);
+//    		System.out.println(newPos.getColumn()+" x "+newPos.getRow());
     	}
     	else if(move == Types.Move.DOWN){
     		newPos = new Position(player.getPosition().getRow(),player.getPosition().getColumn()+movement);
@@ -35,8 +36,8 @@ public class MoveExecutor{ // executes move
     		newPos = new Position(player.getPosition().getRow()+movement,player.getPosition().getColumn());
     	}
     	else if(move == Types.Move.PLACE_BOMB){
-    		int playerR=(int) Math.floor(player.getPosition().getRow() / 50);
-        	int playerC=(int) Math.floor(player.getPosition().getColumn() / 50);
+    		int playerR=player.getPosition().getRow() / 50;
+        	int playerC=player.getPosition().getColumn() / 50;
     		newPos = new Position(player.getPosition().getRow(),player.getPosition().getColumn());
         		
     			RandomTest.m.map.map[playerR][playerC] = new Bomb(newPos);
@@ -78,6 +79,9 @@ public class MoveExecutor{ // executes move
     	
     	int pR = RandomTest.m.p1.getPosition().getRow();
     	int pC = RandomTest.m.p1.getPosition().getColumn();
+    	
+    	int p2R = RandomTest.m.p2.getPosition().getRow();
+    	int p2C = RandomTest.m.p2.getPosition().getColumn();
     	
     	if (RandomTest.m.e1!=null){ //enemy collision
     		
@@ -126,22 +130,51 @@ public class MoveExecutor{ // executes move
     	
     	
     	if ( Math.abs((bR -pR))<=range && Math.abs((bC -pC))<=range ){ //check player collisions
-    		System.out.println("Player injured in blast radius!");
+    		System.out.println("Player1 injured in blast radius!");
+			RandomTest.m.gameOver =true;
+			return;
+    	}
+    	if ( Math.abs((bR -p2R))<=range && Math.abs((bC -p2C))<=range ){ //check player collisions
+    		System.out.println("Player2 injured in blast radius!");
 			RandomTest.m.gameOver =true;
 			return;
     	}
     	
     	Fire.placeFire(bomb.getPosition(),(range==100)); //place fire
     	
-    	
-    	
-    	for (int r=-1;r<2;r++){
-    		for (int c=-1;c<2;c++){
-//    			System.out.println("Checking: " + (bombR+r) + " x " + (bombC+c));
-    			if (RandomTest.m.map.map[bombR+r][bombC+c] == null){// || RandomTest.m.map.map[bombR+r][bombC+c].isofType(Types.BlockType.UNBREKABLE)){
+    	int rfind=-1;
+    	int rend=1;
+    	int cfind=-1;
+    	int cend=1;
+    	if (range==100){
+    		if (bombR>1){
+    			rfind=-2;
+    		}
+    		if (bombR<13){
+    			rend=2;
+    		}
+    		if (bombC>1){
+    			cfind=-2;
+    		}
+    		if (bombC<13){
+    			cend=2;
+    		}
+    	}
+    	for (int r=rfind;r<=rend;r++){
+    		for (int c=cfind;c<=cend;c++){
+    			if (r==-1 && c==-1 || r==-1 && c==1 || r==1 && c==-1 || r==1 && c==1){ //diagonals
     				continue;
     			}
-    			if (r==-1 && c==-1 || r==-1 && c==1 || r==1 && c==-1 || r==1 && c==1){ //diagonals
+    			if (r==-2 && c==-2 || r==-2 && c==2 || r==2 && c==-2 || r==2 && c==2){ //diagonals
+    				continue;
+    			}
+    			if (r==-2 && c==-1 || r==-2 && c==1 || r==2 && c==-1 || r==2 && c==1){ //diagonals
+    				continue;
+    			}
+    			if (r==-1 && c==-2 || r==1 && c==-2 || r==-1 && c==2 || r==1 && c==2){ //diagonals
+    				continue;
+    			}
+    			if (bombR+r > 14 || bombC+c > 14){
     				continue;
     			}
     			else if ( RandomTest.m.map.map[bombR+r][bombC+c].isofType(Types.BlockType.BREAKABLE)){
@@ -150,6 +183,23 @@ public class MoveExecutor{ // executes move
     			}
     		}
     	}
+    	
+    	
+//    	for (int r=-1;r<2;r++){
+//    		for (int c=-1;c<2;c++){
+////    			System.out.println("Checking: " + (bombR+r) + " x " + (bombC+c));
+//    			if (RandomTest.m.map.map[bombR+r][bombC+c] == null){// || RandomTest.m.map.map[bombR+r][bombC+c].isofType(Types.BlockType.UNBREKABLE)){
+//    				continue;
+//    			}
+//    			if (r==-1 && c==-1 || r==-1 && c==1 || r==1 && c==-1 || r==1 && c==1){ //diagonals
+//    				continue;
+//    			}
+//    			else if ( RandomTest.m.map.map[bombR+r][bombC+c].isofType(Types.BlockType.BREAKABLE)){
+//    				RandomTest.m.map.map[bombR+r][bombC+c] = null;
+//    				break;
+//    			}
+//    		}
+//    	}
 //    	RandomTest.m.bombArray.remove(bomb);
     	RandomTest.m.map.map[bombR][bombC] = null;
     	RandomTest.m.bombOnScreen--;

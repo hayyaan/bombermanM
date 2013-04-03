@@ -23,12 +23,12 @@ public class MoveEvaluator {
     	int playerC=0;
     	
     	if (move == Types.Move.RIGHT || move == Types.Move.DOWN){
-    		playerR = (player.getPosition().getRow()-20) /50;
-    		playerC = (player.getPosition().getColumn()-20) /50;
+    		playerR = (player.getPosition().getRow()-15) /50;
+    		playerC = (player.getPosition().getColumn()-15) /50;
     	}
     	else if (move == Types.Move.LEFT || move == Types.Move.UP){
-    		playerR = (player.getPosition().getRow()+20) /50;
-    		playerC = (player.getPosition().getColumn()+20) /50;
+    		playerR = (player.getPosition().getRow()+15) /50;
+    		playerC = (player.getPosition().getColumn()+15) /50;
     	}
 
     	

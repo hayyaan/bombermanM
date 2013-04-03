@@ -26,7 +26,8 @@ public class EnemyThread implements Runnable{
 			if (e!=null){
 			
 			e.moveEnemy();
-			e.killPlayer();
+			e.killPlayer(RandomTest.m.p1);
+			e.killPlayer(RandomTest.m.p2);
 			}
 			else{
 				break;

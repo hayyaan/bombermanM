@@ -32,7 +32,7 @@ public class PlayerThread implements Runnable {
 				MoveExecutor.executeMove(p, Types.Move.LEFT,p.playerStep);
 			}
 			
-			this.p.sprites.animatePlayer(p.movement);
+			this.p.sprites.animatePlayer(p);
 			
 			if (p.powerUp==null){
 				MoveExecutor.checkPowerUp(p);
