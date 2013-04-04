@@ -316,38 +316,38 @@ public class MapGui extends JPanel implements KeyListener,ActionListener{
 			}
 		}
 		
-		if (e.getKeyCode()==KeyEvent.VK_W){
-//			System.out.println("Pressed UP!");
-			if (MoveEvaluator.isValidMove(p2,Types.Move.UP)){
-				p2.movement = 1;
-//				System.out.println(p2.movement);
-			}
-		}
-		else if (e.getKeyCode()==KeyEvent.VK_S){
-//			System.out.println("Pressed DOWN!");
-			if (MoveEvaluator.isValidMove(p2,Types.Move.DOWN)){
-				p2.movement = -1;
-			}
-		}
-		else if (e.getKeyCode()==KeyEvent.VK_A){
-//			System.out.println("Pressed LEFT!");
-			if (MoveEvaluator.isValidMove(p2,Types.Move.LEFT)){
-				p2.movement = -2;
-			}
-		}
-		else if (e.getKeyCode()==KeyEvent.VK_D){
-//			System.out.println("Pressed RIGHT!");
-			if (MoveEvaluator.isValidMove(p2,Types.Move.RIGHT)){
-				p2.movement =2;
-			}
-		}
-		else if (e.getKeyCode()==KeyEvent.VK_X){
-//			System.out.println("Pressed SPACE!");
-			if (MoveEvaluator.isValidMove(p2,Types.Move.PLACE_BOMB)){			
-				p2.bombToggle =true;
-//				System.out.println(bomb);
-			}
-		}
+//		if (e.getKeyCode()==KeyEvent.VK_W){
+////			System.out.println("Pressed UP!");
+//			if (MoveEvaluator.isValidMove(p2,Types.Move.UP)){
+//				p2.movement = 1;
+////				System.out.println(p2.movement);
+//			}
+//		}
+//		else if (e.getKeyCode()==KeyEvent.VK_S){
+////			System.out.println("Pressed DOWN!");
+//			if (MoveEvaluator.isValidMove(p2,Types.Move.DOWN)){
+//				p2.movement = -1;
+//			}
+//		}
+//		else if (e.getKeyCode()==KeyEvent.VK_A){
+////			System.out.println("Pressed LEFT!");
+//			if (MoveEvaluator.isValidMove(p2,Types.Move.LEFT)){
+//				p2.movement = -2;
+//			}
+//		}
+//		else if (e.getKeyCode()==KeyEvent.VK_D){
+////			System.out.println("Pressed RIGHT!");
+//			if (MoveEvaluator.isValidMove(p2,Types.Move.RIGHT)){
+//				p2.movement =2;
+//			}
+//		}
+//		else if (e.getKeyCode()==KeyEvent.VK_X){
+////			System.out.println("Pressed SPACE!");
+//			if (MoveEvaluator.isValidMove(p2,Types.Move.PLACE_BOMB)){			
+//				p2.bombToggle =true;
+////				System.out.println(bomb);
+//			}
+//		}
 		
 	}
 	

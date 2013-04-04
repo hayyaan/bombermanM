@@ -25,4 +25,14 @@ public class RandomTest { // class that runs the actual game
 	
 	
 	}
+	
+	public void run(){
+		JFrame f =new JFrame();
+		m=new MapGui();
+		f.add(m);
+		f.setSize(765,795);
+		f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		f.setLocationRelativeTo(null);
+		f.setVisible(true);
+	}
 }

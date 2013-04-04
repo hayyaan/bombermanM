@@ -24,14 +24,19 @@ public class BomborMan {
 	void initMainMenu(){
 		mainMenu.setLayout(new BoxLayout(mainMenu, BoxLayout.PAGE_AXIS));
 		JButton play = new JButton("Play Game!");
-		JButton help = new JButton("Help");
+		JButton hostRmi = new JButton("Host RMI Game!");
+		JButton joinRmi = new JButton("Join RMI Game! (Does not work, launch RmiClient class)");
+//		JButton help = new JButton("Help");
 		JButton exit = new JButton("Exit");
 		mainMenu.add(Box.createRigidArea(new Dimension(50,50)));
 		mainMenu.add(Box.createRigidArea(new Dimension(50,0)));
 		mainMenu.add(play);
 		mainMenu.add(Box.createRigidArea(new Dimension(0,10)));
 		mainMenu.add(Box.createRigidArea(new Dimension(50,0)));
-		mainMenu.add(help);
+		mainMenu.add(hostRmi);
+		mainMenu.add(Box.createRigidArea(new Dimension(0,10)));
+		mainMenu.add(Box.createRigidArea(new Dimension(50,0)));
+		mainMenu.add(joinRmi);
 		mainMenu.add(Box.createRigidArea(new Dimension(50,0)));
 		mainMenu.add(Box.createRigidArea(new Dimension(0,10)));
 		mainMenu.add(exit);
@@ -52,7 +57,26 @@ public class BomborMan {
 //				mainFrame.setLocationRelativeTo(null);
 //				mainFrame.setVisible(true);
 				mainFrame.removeAll();
+				mainFrame.setVisible(false);
 				RandomTest.main(null);
+			}
+		});
+		hostRmi.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent event){
+				mainFrame.removeAll();
+				mainFrame.setVisible(false);
+				RmiServer.main(null);
+			}
+		});
+		joinRmi.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent event){
+				mainFrame.removeAll();
+				mainFrame.setVisible(false);
+//				JoinRmi.main(null);
+//				String ip = System.console().readLine("Enter IP:");
+//				System.out.println(ip);
+//				String [] entry = {ip};
+				RmiClient.main(null);
 			}
 		});
 
